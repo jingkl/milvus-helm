@@ -28,7 +28,7 @@ nodeSelector: {}
 # Individual components can be set to a different tolerations
 tolerations:
 - effect: NoSchedule
-  operator: Exist
+  operator: Exists
   key: benchmark
 
 # Global affinity
