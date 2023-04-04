@@ -5,7 +5,7 @@ cluster:
 image:
   all:
     repository: milvusdb/milvus
-    tag: v2.2.3
+    tag: v2.2.5
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
@@ -88,8 +88,13 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: 4m
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
   labels: {}
-  hosts:
-    - milvus-example.local
+  rules:
+    - host: "milvus-example.local"
+      path: "/"
+      pathType: "Prefix"
+    # - host: "milvus-example2.local"
+    #   path: "/otherpath"
+    #   pathType: "Prefix"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -368,6 +373,29 @@ dataNode:
   profiling:
     enabled: false  # Enable live profiling
 
+## mixCoordinator contains all coord
+## If you want to use mixcoord, enable this and disable all of other coords 
+mixCoordinator:
+  enabled: false
+  # You can set the number of replicas greater than 1, only if enable active standby
+  replicas: 1           # Run Mixture Coordinator mode with replication disabled
+  resources: {}
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  extraEnv: []
+  heaptrack:
+    enabled: false
+  profiling:
+    enabled: false  # Enable live profiling
+  activeStandby:
+    enabled: false  # Enable active-standby when you set multiple replicas for Mixture coordinator
+
+  service:
+    annotations: {}
+    labels: {}
+    clusterIP: ""
+
 attu:
   enabled: false
   name: attu
@@ -402,7 +430,7 @@ minio:
   name: minio
   mode: distributed
   image:
-    tag: "RELEASE.2022-03-17T06-34-49Z"
+    tag: "RELEASE.2023-03-20T20-16-18Z"
     pullPolicy: IfNotPresent
   accessKey: minioadmin
   secretKey: minioadmin
