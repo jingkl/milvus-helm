@@ -22,7 +22,7 @@ image:
 # If set, this will apply to all milvus components
 # Individual components can be set to a different node selector
 nodeSelector: 
-  node-role/nvme: true
+  node-role/nvme: "true"
 
 # Global tolerations
 # If set, this will apply to all milvus components
@@ -84,7 +84,7 @@ ingress:
   annotations:
     # Annotation example: set nginx ingress type
     # kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: GRPC
+    nginx.ingress.kubernetes.io/backfend-protocol: GRPC
     nginx.ingress.kubernetes.io/listen-ports-ssl: '[19530]'
     nginx.ingress.kubernetes.io/proxy-body-size: 4m
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
